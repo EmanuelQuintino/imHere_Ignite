@@ -1,33 +1,27 @@
 import { Text, View, TextInput, TouchableOpacity, FlatList, Alert } from "react-native";
 import { styles } from "./style";
 import { Participant } from "../../components/Participant";
+import { useEffect, useState } from "react";
 
 export function Home() {
-  function handleAddParticipant(name: string) {
-    if (participants.includes(name)) {
+  const [participants, setParticipants] = useState<string[]>([]);
+  const [participantName, setParticipantName] = useState("");
+
+  function handleAddParticipant() {
+    if (participants.includes(participantName)) {
       return Alert.alert("Participante listado", "O nome do participante já está na lista");
     };
+    setParticipants(prevState => [...prevState, participantName]);
+    setParticipantName("");
   };
 
   function handleRemoveParticipant(name: string) {
+    const remove = () => setParticipants(participants.filter(participantName => participantName !== name));
     Alert.alert("Remover Participante", `Deseja remover ${name} da lista?`, [
-      { text: "Sim", onPress: () => Alert.alert("", `Participante ${name} removido com sucesso!`) },
+      { text: "Sim", onPress: () => remove() },
       { text: "Não", style: "cancel" },
     ]);
   };
-
-  const participants = [
-    "Emanuel Quintino",
-    "Clara dos Anjos",
-    "Victoria Cabral",
-    "Thiago Souza",
-    "Brenda Amaral",
-    "Raí Torres",
-    "Robson Fernandes",
-    "Marcos Gomes",
-    "Isabel Oliveira",
-    "Kelly Cristina",
-  ];
 
   return (
     <>
@@ -41,9 +35,11 @@ export function Home() {
             placeholder="Nome do participante"
             placeholderTextColor={"#6b6b6b88"}
             keyboardType="default"
+            value={participantName}
+            onChangeText={setParticipantName}
           />
 
-          <TouchableOpacity style={styles.button} onPress={() => handleAddParticipant("Emanuel Quintino")}>
+          <TouchableOpacity style={styles.button} onPress={() => handleAddParticipant()}>
             <Text style={styles.buttonText}>+</Text>
           </TouchableOpacity>
         </View>
@@ -63,7 +59,6 @@ export function Home() {
             <Text style={styles.emptyList}>Lista de convidados vazia</Text>
           )}
         />
-
       </View>
     </>
   )
