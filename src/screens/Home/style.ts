@@ -50,4 +50,11 @@ export const styles = StyleSheet.create({
     color: "#fdfcfe",
     fontSize: 24,
   },
+
+  emptyList: {
+    color: "#6b6b6b",
+    fontSize: 16,
+    textAlign: "center",
+    marginTop: "50%"
+  },
 });
