@@ -1,7 +1,7 @@
 import { Text, View, TextInput, TouchableOpacity, FlatList, Alert } from "react-native";
 import { styles } from "./style";
 import { Participant } from "../../components/Participant";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export function Home() {
   const [participants, setParticipants] = useState<string[]>([]);
