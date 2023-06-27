@@ -1,19 +1,24 @@
-import { Text, View, TextInput, TouchableOpacity, FlatList } from "react-native";
+import { Text, View, TextInput, TouchableOpacity, FlatList, Alert } from "react-native";
 import { styles } from "./style";
 import { Participant } from "../../components/Participant";
 
 export function Home() {
-  function handleAddParticipant() {
-    console.log("add");
+  function handleAddParticipant(name: string) {
+    if (participants.includes(name)) {
+      return Alert.alert("Participante listado", "O nome do participante já está na lista");
+    };
   };
 
   function handleRemoveParticipant(name: string) {
-    console.log(`remove ${name}`);
+    Alert.alert("Remover Participante", `Deseja remover ${name} da lista?`, [
+      { text: "Sim", onPress: () => Alert.alert("", `Participante ${name} removido com sucesso!`) },
+      { text: "Não", style: "cancel" },
+    ]);
   };
 
   const participants = [
     "Emanuel Quintino",
-    "Clara do Anjos",
+    "Clara dos Anjos",
     "Victoria Cabral",
     "Thiago Souza",
     "Brenda Amaral",
@@ -38,7 +43,7 @@ export function Home() {
             keyboardType="default"
           />
 
-          <TouchableOpacity style={styles.button} onPress={handleAddParticipant}>
+          <TouchableOpacity style={styles.button} onPress={() => handleAddParticipant("Emanuel Quintino")}>
             <Text style={styles.buttonText}>+</Text>
           </TouchableOpacity>
         </View>
